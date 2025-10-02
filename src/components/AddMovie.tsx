@@ -12,6 +12,7 @@ export function AddMovie({ onAddMovie }: AddMovieProps) {
   const [description, setDescription] = useState('');
   const [posterUrl, setPosterUrl] = useState('');
   const [rating, setRating] = useState('');
+  const [trailerUrl, setTrailerUrl] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,13 +27,15 @@ export function AddMovie({ onAddMovie }: AddMovieProps) {
       title,
       description,
       poster_url: posterUrl,
-      rating: ratingNum
+      rating: ratingNum,
+      trailer_url: trailerUrl || undefined
     });
 
     setTitle('');
     setDescription('');
     setPosterUrl('');
     setRating('');
+    setTrailerUrl('');
     setIsOpen(false);
   };
 
@@ -120,6 +123,21 @@ export function AddMovie({ onAddMovie }: AddMovieProps) {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
                   placeholder="8.5"
                 />
+              </div>
+
+              <div>
+                <label htmlFor="trailerUrl" className="block text-sm font-medium text-gray-700 mb-1">
+                  Trailer URL (Optional)
+                </label>
+                <input
+                  id="trailerUrl"
+                  type="url"
+                  value={trailerUrl}
+                  onChange={(e) => setTrailerUrl(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  placeholder="https://youtube.com/watch?v=..."
+                />
+                <p className="text-xs text-gray-500 mt-1">YouTube or other video URL</p>
               </div>
 
               <div className="flex gap-3 pt-4">

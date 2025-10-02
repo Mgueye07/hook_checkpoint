@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Star, Trash2 } from 'lucide-react';
 import { Movie } from '../lib/supabase';
 
@@ -7,14 +8,26 @@ interface MovieCardProps {
 }
 
 export function MovieCard({ movie, onDelete }: MovieCardProps) {
-  const handleDelete = () => {
+  const navigate = useNavigate();
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (movie.id && onDelete) {
       onDelete(movie.id);
     }
   };
 
+  const handleCardClick = () => {
+    if (movie.id) {
+      navigate(`/movie/${movie.id}`);
+    }
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div
+      onClick={handleCardClick}
+      className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+    >
       <div className="relative h-96 overflow-hidden">
         <img
           src={movie.poster_url}

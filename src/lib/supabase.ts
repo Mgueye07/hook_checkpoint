@@ -11,5 +11,6 @@ export interface Movie {
   description: string;
   poster_url: string;
   rating: number;
+  trailer_url?: string;
   created_at?: string;
 }

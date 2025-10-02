@@ -58,5 +58,20 @@ export const movieService = {
     }
 
     return true;
+  },
+
+  async getMovieById(id: string): Promise<Movie | null> {
+    const { data, error } = await supabase
+      .from('movies')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error fetching movie:', error);
+      return null;
+    }
+
+    return data;
   }
 };
